@@ -18,7 +18,6 @@ namespace AuthSecurityApi.Controllers
             _service = service;
         }
 
-        /// <summary>Реєструє користувача та створює профіль.</summary>
         [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status201Created)]
@@ -37,7 +36,6 @@ namespace AuthSecurityApi.Controllers
             return StatusCode(StatusCodes.Status201Created, result);
         }
 
-        /// <summary>Перевіряє облікові дані та встановлює cookie автентифікації.</summary>
         [AllowAnonymous]
         [HttpPost("login")]
         [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
@@ -56,7 +54,6 @@ namespace AuthSecurityApi.Controllers
             };
         }
 
-        /// <summary>Завершує поточний сеанс.</summary>
         [Authorize]
         [HttpPost("logout")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -66,7 +63,6 @@ namespace AuthSecurityApi.Controllers
             return NoContent();
         }
 
-        /// <summary>Змінює пароль авторизованого користувача.</summary>
         [Authorize]
         [HttpPost("change-password")]
         [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
