@@ -1,0 +1,48 @@
+@AuthSecurityApi_HostAddress = https://localhost:7055
+@AdminEmail = admin@authsystem.local
+@AdminPassword = Admin123!
+
+### Login as the seeded administrator. Keep the returned auth cookie for the next calls.
+POST {{AuthSecurityApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{AdminEmail}}",
+  "password": "{{AdminPassword}}"
+}
+
+### List profiles (requires the Admin cookie)
+GET {{AuthSecurityApi_HostAddress}}/api/users
+Accept: application/json
+
+### Register a user
+POST {{AuthSecurityApi_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Olena",
+  "lastName": "Koval",
+  "email": "olena@example.com",
+  "phoneNumber": "+380501234567",
+  "city": "Kyiv",
+  "dateOfBirth": "2000-04-12",
+  "password": "S!mplePass2026",
+  "confirmPassword": "S!mplePass2026"
+}
+
+### Request a password-reset token (Development only returns the token)
+POST {{AuthSecurityApi_HostAddress}}/api/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "olena@example.com"
+}
+
+### Lock user id 2 for the default 30 minutes (requires Admin cookie)
+POST {{AuthSecurityApi_HostAddress}}/api/users/2/lock
+
+### Unlock user id 2 (requires Admin cookie)
+POST {{AuthSecurityApi_HostAddress}}/api/users/2/unlock
+
+### Logout
+POST {{AuthSecurityApi_HostAddress}}/api/auth/logout
